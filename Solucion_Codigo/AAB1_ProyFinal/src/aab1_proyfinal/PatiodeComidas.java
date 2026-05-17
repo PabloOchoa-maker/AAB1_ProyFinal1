@@ -38,4 +38,14 @@ public class PatiodeComidas {
         this.nombre = nombre;
     }
 
+    public Restaurante[] getRestaurantes() {
+        return restaurantes;
+    }
+
+    public void setRestaurantes(Restaurante[] restaurantes) {
+        this.restaurantes = restaurantes;
+    }
+    
+    
+
 }
