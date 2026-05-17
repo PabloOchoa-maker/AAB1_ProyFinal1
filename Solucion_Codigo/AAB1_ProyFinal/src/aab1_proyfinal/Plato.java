@@ -17,10 +17,11 @@ public class Plato {
         this.disponible = disponible;
         this.ingredientes = ingredientes;
     }
-
+//FALTA
     public boolean verificarStock() {
         return false;
     }
+//    .....
 
     public double getPrecio() {
         return precio;
@@ -38,27 +39,12 @@ public class Plato {
         return nombre;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public void setPrecio(double precio) {
-        this.precio = precio;
-    }
-
     public boolean isDisponible() {
         return disponible;
-    }
-
-    public void setDisponible(boolean disponible) {
-        this.disponible = disponible;
     }
 
     public Ingrediente[] getIngredientes() {
         return ingredientes;
     }
 
-    public void setIngredientes(Ingrediente[] ingredientes) {
-        this.ingredientes = ingredientes;
-    }
 }

@@ -15,11 +15,19 @@ public class Restaurante implements Calculable {
         this.platos = platos;
         this.inventario = inventario;
     }
-
-    public void agregarInventario(Inventario inv){
-        this.inventario = inv;
+    
+    public void mostrarPlatos(){
+        int i = 0;
+        while(platos[i] != null) {
+            System.out.println( (i + 1) + ". " + platos[i].getNombre() + " $" + platos[i].getPrecio() + ( platos[i].isDisponible() ? " Disponible" : " No disponible"));
+            i++;
+        }
+        System.out.println("0. Para salir MENU RESTAURANTES");
+        System.out.println("Que plato va a aniadir al pedido: ");
     }
     
+    
+//    FALTA
     @Override
     public double calcularTotal() {
         return 0;
@@ -28,29 +36,19 @@ public class Restaurante implements Calculable {
     public Plato getPlatoMasVendido() {
         return null;
     }
+    
+//    ....
 
     public String getId() {
         return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
     }
 
     public String getNombre() {
         return nombre;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
     public Plato[] getPlatos() {
         return platos;
-    }
-
-    public void setPlatos(Plato[] platos) {
-        this.platos = platos;
     }
 
     public Inventario getInventario() {

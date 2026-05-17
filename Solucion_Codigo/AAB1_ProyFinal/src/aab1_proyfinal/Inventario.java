@@ -13,11 +13,14 @@ public class Inventario {
         this.cantidadIngredientes = ingredientes.length;
     }
     
-    public void agregarIngrediente() {
-        System.out.println("AGREGANDO INGREDIENTE A INVENTARIO");
-    }
-
+    
+//    STRING PARA RGISTRAR LO QUE VA A OCURRIENDO EN EL DIA EN EL SISTEMA
+//    COMO REDUCCION DE STOCK 
     public void registrarEntrada(Ingrediente i) {
+        
+    }
+//    MOSTRA RESUMEN
+    public void resumenInventario(){
         
     }
 
@@ -29,7 +32,4 @@ public class Inventario {
         return ingredientes;
     }
 
-    public void setIngredientes(Ingrediente[] ingredientes) {
-        this.ingredientes = ingredientes;
-    }
 }

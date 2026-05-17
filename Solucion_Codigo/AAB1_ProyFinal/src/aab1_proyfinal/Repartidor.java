@@ -11,9 +11,11 @@ public class Repartidor {
         this.disponible = disponible;
         this.zonaCobertura = zonaCobertura;
     }
-
+//FALTA
     public void asignarPedido(Pedido p) {
     }
+    
+//    ,,..,
 
     public String getNombre() {
         return nombre;

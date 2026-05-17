@@ -9,7 +9,7 @@ public class Ingrediente {
         this.nombre = nombre;
         this.stockActual = stockActual;
     }
-
+//FALTa
     public boolean hayStock() {
         return false;
     }
@@ -17,20 +17,13 @@ public class Ingrediente {
     public void reducirStock(int cantidad) {
         
     }
-
+//....
     public String getNombre() {
         return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
     }
 
     public int getStockActual() {
         return stockActual;
     }
 
-    public void setStockActual(int stockActual) {
-        this.stockActual = stockActual;
-    }
 }

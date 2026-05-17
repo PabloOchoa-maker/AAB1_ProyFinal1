@@ -19,7 +19,7 @@ public class Pedido implements Calculable {
         this.cliente = cliente;
         this.repartidor = repartidor;
     }
-
+//FALTA
     @Override
     public double calcularTotal() {
         return 0;
@@ -28,6 +28,7 @@ public class Pedido implements Calculable {
     public double calcularDelivery() {
         return 0;
     }
+//    .....
 
     public String getId() {
         return id;

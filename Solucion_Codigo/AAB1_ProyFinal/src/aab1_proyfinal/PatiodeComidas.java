@@ -25,10 +25,19 @@ public class PatiodeComidas {
             System.out.println("NO HAY CAPACIDAD PARA MAS RESTAURANTES");
         }
     }
+    
+    public void mostrarRestaurantes(){
+        for (int i = 0; i < restaurantesExistentes; i++) {
+            System.out.println((i + 1) + ". " + restaurantes[i].getNombre());
+        }
+    }
 
+    
+//    FALTA
     public String generarReporte() {
         return null;
     }
+//    ...
 
     public String getNombre() {
         return nombre;
@@ -42,10 +51,9 @@ public class PatiodeComidas {
         return restaurantes;
     }
 
-    public void setRestaurantes(Restaurante[] restaurantes) {
-        this.restaurantes = restaurantes;
+    public int getRestaurantesExistentes() {
+        return restaurantesExistentes;
     }
     
     
-
 }

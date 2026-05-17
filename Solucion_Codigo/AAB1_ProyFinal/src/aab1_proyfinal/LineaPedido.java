@@ -1,7 +1,9 @@
 package aab1_proyfinal;
 
 public class LineaPedido {
-
+    
+    
+    
     private Plato plato;
     private int cantidad;
     private double precioUnitario;
@@ -11,10 +13,11 @@ public class LineaPedido {
         this.cantidad = cantidad;
         this.precioUnitario = precioUnitario;
     }
-
+//FALTA
     public double getSubtotal() {
         return 0;
     }
+//   ....
 
     public Plato getPlato() {
         return plato;
