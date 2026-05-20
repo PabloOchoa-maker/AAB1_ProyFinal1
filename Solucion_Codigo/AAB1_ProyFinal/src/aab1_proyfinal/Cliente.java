@@ -1,15 +1,24 @@
 package aab1_proyfinal;
 
-public class Cliente {
+import java.util.Random;
+import java.util.Scanner;
 
+public class Cliente {
+    private Scanner tcl;
     private String nombre;
     private String direccion;
-    private String telefono;
+    private double distanciaKm;
+    private Random random;
 
-    public Cliente(String nombre, String direccion, String telefono) {
-        this.nombre = nombre;
-        this.direccion = direccion;
-        this.telefono = telefono;
+    public Cliente() {
+        this.random = new Random();
+        System.out.println("===CREANDO CLIENTE===");
+        Scanner tcl = new Scanner(System.in);
+        System.out.println("Nombre del cliente: ");
+        this.nombre = tcl.next();
+        System.out.println("Direccion del cliente");
+        this.direccion = tcl.next();
+        this.distanciaKm = random.nextInt(15) + 1;
     }
 
     public String getDireccion() {
@@ -27,12 +36,5 @@ public class Cliente {
     public void setDireccion(String direccion) {
         this.direccion = direccion;
     }
-
-    public String getTelefono() {
-        return telefono;
-    }
-
-    public void setTelefono(String telefono) {
-        this.telefono = telefono;
-    }
+    
 }

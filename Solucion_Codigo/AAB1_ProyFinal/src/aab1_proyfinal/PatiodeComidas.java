@@ -43,7 +43,6 @@ public class PatiodeComidas {
             System.out.println((i + 1) + ". " + restaurantes[i].getNombre());
         }
         System.out.println("10. REALIZAR PEDIDO");
-        System.out.println("0. VOLVER AL MENU PRINCIPAL");
     }
 
     

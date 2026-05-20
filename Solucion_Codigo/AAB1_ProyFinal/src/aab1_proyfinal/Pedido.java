@@ -1,24 +1,23 @@
 package aab1_proyfinal;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class Pedido implements Calculable {
 
 
-    private String id;
-    private String estado;
-    private double distanciaKm;
+    private int id;
     private ArrayList<LineaPedido> lineas;
     private Cliente cliente;
     private Repartidor repartidor;
+    private Random random;
 
-    public Pedido(String id, String estado, double distanciaKm, ArrayList<LineaPedido> lineas, Cliente cliente, Repartidor repartidor) {
-        this.id = id;
-        this.estado = estado;
-        this.distanciaKm = distanciaKm;
+    public Pedido(ArrayList<LineaPedido> lineas, Cliente cliente, Repartidor repartidor) {
+        this.id = random.nextInt(200) + 100;
         this.lineas = lineas;
         this.cliente = cliente;
         this.repartidor = repartidor;
+        this.random = new Random();
     }
 //FALTA
     @Override
@@ -31,28 +30,12 @@ public class Pedido implements Calculable {
     }
 //    .....
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
-    }
-
-    public String getEstado() {
-        return estado;
-    }
-
-    public void setEstado(String estado) {
-        this.estado = estado;
-    }
-
-    public double getDistanciaKm() {
-        return distanciaKm;
-    }
-
-    public void setDistanciaKm(double distanciaKm) {
-        this.distanciaKm = distanciaKm;
     }
 
     public Cliente getCliente() {

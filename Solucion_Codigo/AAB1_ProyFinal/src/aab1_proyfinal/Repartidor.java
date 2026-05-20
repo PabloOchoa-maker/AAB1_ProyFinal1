@@ -4,19 +4,16 @@ public class Repartidor {
 
     private String nombre;
     private boolean disponible;
-    private String zonaCobertura;
 
-    public Repartidor(String nombre, boolean disponible, String zonaCobertura) {
+    public Repartidor(String nombre) {
         this.nombre = nombre;
-        this.disponible = disponible;
-        this.zonaCobertura = zonaCobertura;
-    }
-//FALTA
-    public void asignarPedido(Pedido p) {
+        this.disponible = true;
     }
     
-//    ,,..,
-
+    public void asignarPedido() {
+        setDisponible(false);
+    }
+    
     public String getNombre() {
         return nombre;
     }
@@ -33,11 +30,4 @@ public class Repartidor {
         this.disponible = disponible;
     }
 
-    public String getZonaCobertura() {
-        return zonaCobertura;
-    }
-
-    public void setZonaCobertura(String zonaCobertura) {
-        this.zonaCobertura = zonaCobertura;
-    }
 }
