@@ -26,10 +26,24 @@ public class PatiodeComidas {
         }
     }
     
+    public void agregarRestaurantePorTcl(Restaurante r) {
+        System.out.println("AGREGANDO " + r.getNombre() + " AL PATIO DE COMIDAS");
+        System.out.println("");
+        
+        if (restaurantesExistentes < MAX_RESTAURANTES) {
+            restaurantes[restaurantesExistentes] = r;
+            restaurantesExistentes++;
+        } else {
+            System.out.println("NO HAY CAPACIDAD PARA MAS RESTAURANTES");
+        }
+    }
+    
     public void mostrarRestaurantes(){
         for (int i = 0; i < restaurantesExistentes; i++) {
             System.out.println((i + 1) + ". " + restaurantes[i].getNombre());
         }
+        System.out.println("10. REALIZAR PEDIDO");
+        System.out.println("0. VOLVER AL MENU PRINCIPAL");
     }
 
     

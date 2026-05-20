@@ -18,6 +18,17 @@ public class Ingrediente {
         
     }
 //....
+    
+    
+//    INVENTARIO
+    public void registrarEntrada() {
+        
+    }
+    
+//    MOSTRA RESUMEN
+    public void resumenInventario(){
+        
+    }
     public String getNombre() {
         return nombre;
     }

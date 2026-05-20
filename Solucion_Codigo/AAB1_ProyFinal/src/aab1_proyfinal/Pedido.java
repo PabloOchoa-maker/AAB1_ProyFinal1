@@ -1,17 +1,18 @@
 package aab1_proyfinal;
 
+import java.util.ArrayList;
+
 public class Pedido implements Calculable {
 
-    public static final int MAX_LINEAS = 10;
 
     private String id;
     private String estado;
     private double distanciaKm;
-    private LineaPedido[] lineas;
+    private ArrayList<LineaPedido> lineas;
     private Cliente cliente;
     private Repartidor repartidor;
 
-    public Pedido(String id, String estado, double distanciaKm, LineaPedido[] lineas, Cliente cliente, Repartidor repartidor) {
+    public Pedido(String id, String estado, double distanciaKm, ArrayList<LineaPedido> lineas, Cliente cliente, Repartidor repartidor) {
         this.id = id;
         this.estado = estado;
         this.distanciaKm = distanciaKm;
@@ -52,14 +53,6 @@ public class Pedido implements Calculable {
 
     public void setDistanciaKm(double distanciaKm) {
         this.distanciaKm = distanciaKm;
-    }
-
-    public LineaPedido[] getLineas() {
-        return lineas;
-    }
-
-    public void setLineas(LineaPedido[] lineas) {
-        this.lineas = lineas;
     }
 
     public Cliente getCliente() {
