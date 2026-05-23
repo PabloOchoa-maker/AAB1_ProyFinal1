@@ -1,0 +1,6 @@
+P01;R01;Ceviche de camaron;6.5;true
+P02;R01;Encebollado;3.0;true
+P03;R01;Arroz marinero;7.25;true
+P04;R02;Pollo a la brasa;12.0;true
+P05;R02;Alitas BBQ;8.5;true
+P06;R03;Hamburguesa clasica;5.75;true

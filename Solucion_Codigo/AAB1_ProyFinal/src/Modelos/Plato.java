@@ -1,30 +1,48 @@
 package Modelos;
 
-public class Plato {
+import java.util.ArrayList;
 
-    public static final int MAX_INGREDIENTES = 10;
+public class Plato {
 
     private String id;
     private String nombre;
     private double precio;
     private boolean disponible;
-    private Ingrediente[] ingredientes;
+    private ArrayList<Ingrediente> ingredientes;
 
-    public Plato(String id, String nombre, double precio, boolean disponible, Ingrediente[] ingredientes) {
+    public Plato(String id, String nombre, double precio, boolean disponible) {
+        this.id = id;
+        this.nombre = nombre;
+        this.precio = precio;
+        this.disponible = disponible;
+        this.ingredientes = new ArrayList<>();
+    }
+
+    public Plato(String id, String nombre, double precio, boolean disponible, ArrayList<Ingrediente> ingredientes) {
         this.id = id;
         this.nombre = nombre;
         this.precio = precio;
         this.disponible = disponible;
         this.ingredientes = ingredientes;
     }
-//FALTA
-    public boolean verificarStock() {
-        return false;
-    }
-//    .....
 
-    public double getPrecio() {
-        return precio;
+    public void agregarIngrediente(Ingrediente ing) {
+        ingredientes.add(ing);
+    }
+
+    public boolean verificarStock(int cantidadPlatos) {
+        for (Ingrediente ing : ingredientes) {
+            if (!ing.hayStock(cantidadPlatos)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public void descontarStockPor(int cantidadPlatos) {
+        for (Ingrediente ing : ingredientes) {
+            ing.reducirStock(cantidadPlatos);
+        }
     }
 
     public String getId() {
@@ -39,12 +57,31 @@ public class Plato {
         return nombre;
     }
 
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public double getPrecio() {
+        return precio;
+    }
+
+    public void setPrecio(double precio) {
+        this.precio = precio;
+    }
+
     public boolean isDisponible() {
         return disponible;
     }
 
-    public Ingrediente[] getIngredientes() {
+    public void setDisponible(boolean disponible) {
+        this.disponible = disponible;
+    }
+
+    public ArrayList<Ingrediente> getIngredientes() {
         return ingredientes;
     }
 
+    public void setIngredientes(ArrayList<Ingrediente> ingredientes) {
+        this.ingredientes = ingredientes;
+    }
 }

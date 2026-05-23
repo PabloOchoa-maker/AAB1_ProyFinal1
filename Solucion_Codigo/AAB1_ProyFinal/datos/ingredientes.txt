@@ -1,0 +1,23 @@
+Camaron;P01;48
+Limon;P01;118
+Cebolla;P01;38
+Cilantro;P01;28
+Albacora;P02;35
+Yuca;P02;60
+Cebolla;P02;40
+Tomate;P02;45
+Cilantro;P02;30
+Arroz;P03;98
+Mariscos mixtos;P03;23
+Pimiento;P03;18
+Pollo entero;P04;40
+Especias;P04;15
+Alitas;P05;53
+Salsa BBQ;P05;16
+Papas;P05;68
+Pan;P06;75
+Carne molida;P06;25
+Queso;P06;15
+Lechuga;P06;20
+Tomate;P06;40
+Salsas;P06;7

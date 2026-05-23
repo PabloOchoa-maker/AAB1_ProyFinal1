@@ -5,30 +5,52 @@ import java.util.Random;
 
 public class Pedido implements Calculable {
 
-
     private int id;
     private ArrayList<LineaPedido> lineas;
     private Cliente cliente;
     private Repartidor repartidor;
-    private Random random;
+
+    private static Random random = new Random();
+    private static double tarifaBaseDelivery = 1.50;
+    private static double costoPorKm = 0.50;
 
     public Pedido(ArrayList<LineaPedido> lineas, Cliente cliente, Repartidor repartidor) {
         this.id = random.nextInt(200) + 100;
         this.lineas = lineas;
         this.cliente = cliente;
         this.repartidor = repartidor;
-        this.random = new Random();
     }
-//FALTA
+
+    public Pedido(int id, ArrayList<LineaPedido> lineas, Cliente cliente, Repartidor repartidor) {
+        this.id = id;
+        this.lineas = lineas;
+        this.cliente = cliente;
+        this.repartidor = repartidor;
+    }
+
     @Override
     public double calcularTotal() {
-        return 0;
+        double total = 0;
+        for (LineaPedido l : lineas) {
+            total = total + l.getSubtotal();
+        }
+        return total + calcularDelivery();
+    }
+
+    public double calcularSubtotalPlatos() {
+        double total = 0;
+        for (LineaPedido l : lineas) {
+            total = total + l.getSubtotal();
+        }
+        return total;
     }
 
     public double calcularDelivery() {
-        return 0;
+        if (cliente == null) {
+            return tarifaBaseDelivery;
+        }
+        return tarifaBaseDelivery + (cliente.getDistanciaKm() * costoPorKm);
     }
-//    .....
 
     public int getId() {
         return id;
@@ -36,6 +58,14 @@ public class Pedido implements Calculable {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public ArrayList<LineaPedido> getLineas() {
+        return lineas;
+    }
+
+    public void setLineas(ArrayList<LineaPedido> lineas) {
+        this.lineas = lineas;
     }
 
     public Cliente getCliente() {

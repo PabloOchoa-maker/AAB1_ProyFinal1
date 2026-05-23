@@ -9,11 +9,20 @@ public class Repartidor {
         this.nombre = nombre;
         this.disponible = true;
     }
-    
-    public void asignarPedido() {
-        setDisponible(false);
+
+    public Repartidor(String nombre, boolean disponible) {
+        this.nombre = nombre;
+        this.disponible = disponible;
     }
-    
+
+    public void asignarPedido() {
+        this.disponible = false;
+    }
+
+    public void liberar() {
+        this.disponible = true;
+    }
+
     public String getNombre() {
         return nombre;
     }
@@ -29,5 +38,4 @@ public class Repartidor {
     public void setDisponible(boolean disponible) {
         this.disponible = disponible;
     }
-
 }
