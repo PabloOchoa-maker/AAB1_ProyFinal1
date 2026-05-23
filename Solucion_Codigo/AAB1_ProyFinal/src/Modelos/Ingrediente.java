@@ -1,4 +1,4 @@
-package aab1_proyfinal;
+package Modelos;
 
 public class Ingrediente {
 

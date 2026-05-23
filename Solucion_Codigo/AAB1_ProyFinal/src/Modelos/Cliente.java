@@ -1,4 +1,4 @@
-package aab1_proyfinal;
+package Modelos;
 
 import java.util.Random;
 import java.util.Scanner;

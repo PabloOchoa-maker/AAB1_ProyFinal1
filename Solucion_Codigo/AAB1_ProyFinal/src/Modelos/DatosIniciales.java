@@ -1,4 +1,4 @@
-package aab1_proyfinal;
+package Modelos;
 
 /**
  * Carga los datos predefinidos del sistema (restaurantes, platos,
