@@ -1,2 +1,3 @@
-Juan;true
-Emilio;true
+Juan;false
+Emilio;false
+Chamo;true

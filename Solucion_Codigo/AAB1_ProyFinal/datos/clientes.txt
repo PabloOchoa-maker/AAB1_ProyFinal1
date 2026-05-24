@@ -1,2 +1,3 @@
 Pablo;Av Universitaria 123;5.5
 Pedro;Estancia Norte;8.0
+Guerrero;Estancia Sur;10.0

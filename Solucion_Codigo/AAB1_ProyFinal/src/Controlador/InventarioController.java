@@ -42,10 +42,24 @@ public class InventarioController {
             return resumen;
         }
         Restaurante r = rests.get(indiceRestaurante);
-        for (Ingrediente ing : r.getTodosLosIngredientes()) {
-            resumen.add(ing.resumenInventario());
+        for (Plato p : r.getPlatos()) {
+            if (!p.getIngredientes().isEmpty()) {
+                resumen.add("[Plato: " + p.getNombre() + "]");
+                for (Ingrediente ing : p.getIngredientes()) {
+                    resumen.add("  " + ing.resumenInventario());
+                }
+            }
         }
         return resumen;
+    }
+
+    public boolean registrarEntradaDirecta(Ingrediente ing, int cantidad) {
+        if (ing == null || cantidad <= 0) {
+            return false;
+        }
+        ing.registrarEntrada(cantidad);
+        EscrituraInformacion.guardarTodo(patio, clientes, repartidores, pedidos);
+        return true;
     }
 
     public boolean hayStockPara(ArrayList<LineaPedido> lineas) {

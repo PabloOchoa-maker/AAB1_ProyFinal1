@@ -5,8 +5,6 @@ import Modelos.PatiodeComidas;
 import Modelos.Pedido;
 import Modelos.Plato;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 public class ReporteController {
 
@@ -31,32 +29,42 @@ public class ReporteController {
     }
 
     public Plato platoMasVendido() {
-        HashMap<String, Integer> conteo = new HashMap<>();
-        HashMap<String, Plato> referencia = new HashMap<>();
+        ArrayList<Plato> platosVistos = new ArrayList<>();
+        ArrayList<Integer> cantidades = new ArrayList<>();
+
         for (Pedido p : pedidos) {
             for (LineaPedido l : p.getLineas()) {
                 Plato plato = l.getPlato();
                 if (plato == null) {
                     continue;
                 }
-                String id = plato.getId();
-                int actual = conteo.getOrDefault(id, 0);
-                conteo.put(id, actual + l.getCantidad());
-                referencia.put(id, plato);
+                int pos = -1;
+                for (int i = 0; i < platosVistos.size(); i++) {
+                    if (platosVistos.get(i).getId().equals(plato.getId())) {
+                        pos = i;
+                        break;
+                    }
+                }
+                if (pos == -1) {
+                    platosVistos.add(plato);
+                    cantidades.add(l.getCantidad());
+                } else {
+                    cantidades.set(pos, cantidades.get(pos) + l.getCantidad());
+                }
             }
         }
-        String idTop = null;
-        int max = -1;
-        for (Map.Entry<String, Integer> e : conteo.entrySet()) {
-            if (e.getValue() > max) {
-                max = e.getValue();
-                idTop = e.getKey();
-            }
-        }
-        if (idTop == null) {
+
+        if (platosVistos.isEmpty()) {
             return null;
         }
-        return referencia.get(idTop);
+
+        int idxTop = 0;
+        for (int i = 1; i < cantidades.size(); i++) {
+            if (cantidades.get(i) > cantidades.get(idxTop)) {
+                idxTop = i;
+            }
+        }
+        return platosVistos.get(idxTop);
     }
 
     public String generarReporte() {

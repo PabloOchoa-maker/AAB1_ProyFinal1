@@ -1,20 +1,9 @@
 package Vista;
 
-import Controlador.ClienteController;
-import Controlador.InventarioController;
-import Controlador.PedidoController;
-import Controlador.RepartidorController;
-import Controlador.ReporteController;
-import Controlador.RestauranteController;
+import Controlador.*;
 import Modelos.Cliente;
-import Modelos.Combo;
-import Modelos.LineaPedido;
-import Modelos.Pedido;
-import Modelos.Plato;
-import Modelos.Repartidor;
-import Modelos.Restaurante;
+import Modelos.*;
 import java.util.ArrayList;
-import java.util.Locale;
 import java.util.Scanner;
 
 public class Vista {
@@ -29,7 +18,6 @@ public class Vista {
 
     public Vista(ClienteController c, RepartidorController r, RestauranteController rest, InventarioController i, PedidoController p, ReporteController rep) {
         this.tcl = new Scanner(System.in);
-        this.tcl.useLocale(Locale.US);
         this.clienteCtrl = c;
         this.repartidorCtrl = r;
         this.restauranteCtrl = rest;
@@ -283,16 +271,40 @@ public class Vista {
     }
 
     private void menuRestaurantes() {
+        int opc;
+        do {
+            System.out.println("");
+            System.out.println("=== GESTION DE RESTAURANTES ===");
+            System.out.println("1. Ver detalle de un restaurante");
+            System.out.println("2. Registrar combo en un restaurante");
+            System.out.println("3. Agregar restaurante");
+            System.out.println("4. Agregar plato a un restaurante");
+            System.out.println("0. Volver");
+            System.out.print("Opcion: ");
+            opc = leerEntero();
+            if (opc == 1) {
+                verDetalleRestaurante();
+            } else if (opc == 2) {
+                registrarCombo();
+            } else if (opc == 3) {
+                agregarRestaurante();
+            } else if (opc == 4) {
+                agregarPlato();
+            }
+        } while (opc != 0);
+    }
+
+    private void verDetalleRestaurante() {
         ArrayList<Restaurante> rests = restauranteCtrl.listar();
-        System.out.println("");
-        System.out.println("=== RESTAURANTES DEL PATIO ===");
         if (rests.isEmpty()) {
             System.out.println("(sin restaurantes)");
             return;
         }
         for (int i = 0; i < rests.size(); i++) {
             Restaurante r = rests.get(i);
-            System.out.println((i + 1) + ". " + r.getNombre() + " (" + r.getPlatos().size() + " platos, " + r.getCombos().size() + " combos)");
+            System.out.println((i + 1) + ". " + r.getNombre()
+                    + " (" + r.getPlatos().size() + " platos, "
+                    + r.getCombos().size() + " combos)");
         }
         System.out.print("Ver detalle de cual (0 para volver): ");
         int idx = leerEntero() - 1;
@@ -313,6 +325,108 @@ public class Vista {
                 System.out.println("  " + c.descripcion());
             }
         }
+    }
+
+    private void registrarCombo() {
+        ArrayList<Restaurante> rests = restauranteCtrl.listar();
+        if (rests.isEmpty()) {
+            System.out.println("No hay restaurantes en el patio.");
+            return;
+        }
+        System.out.println("");
+        System.out.println("=== REGISTRAR COMBO ===");
+        for (int i = 0; i < rests.size(); i++) {
+            System.out.println((i + 1) + ". " + rests.get(i).getNombre());
+        }
+        System.out.print("Restaurante (0 para volver): ");
+        int idxRest = leerEntero() - 1;
+        Restaurante r = restauranteCtrl.obtenerPorIndice(idxRest);
+        if (r == null) {
+            return;
+        }
+        if (r.getPlatos().size() < 2) {
+            System.out.println("El restaurante necesita al menos 2 platos para crear un combo.");
+            return;
+        }
+
+        System.out.print("ID del combo: ");
+        String id = tcl.next();
+        tcl.nextLine();
+        System.out.print("Nombre del combo: ");
+        String nombre = tcl.nextLine();
+        System.out.print("Precio del combo: ");
+        double precio = leerDouble();
+
+        System.out.println("Platos disponibles en " + r.getNombre() + ":");
+        ArrayList<Plato> platos = r.getPlatos();
+        for (int i = 0; i < platos.size(); i++) {
+            System.out.println((i + 1) + ". " + platos.get(i).getNombre() + " $" + platos.get(i).getPrecio());
+        }
+
+        ArrayList<Integer> seleccionados = new ArrayList<>();
+        System.out.println("Ingrese los numeros de los platos (0 para terminar, minimo 2):");
+        int opcPlato;
+        do {
+            System.out.print("Plato: ");
+            opcPlato = leerEntero();
+            if (opcPlato == 0) {
+                break;
+            }
+            int idx = opcPlato - 1;
+            if (idx < 0 || idx >= platos.size()) {
+                System.out.println("Numero invalido.");
+                continue;
+            }
+            if (seleccionados.contains(idx)) {
+                System.out.println("Ese plato ya fue agregado.");
+                continue;
+            }
+            seleccionados.add(idx);
+            System.out.println("Agregado: " + platos.get(idx).getNombre());
+        } while (true);
+
+        String resultado = restauranteCtrl.registrarCombo(idxRest, id, nombre, precio, seleccionados);
+        System.out.println(resultado);
+    }
+
+    private void agregarRestaurante() {
+        System.out.println("");
+        System.out.println("=== AGREGAR RESTAURANTE ===");
+        System.out.print("ID del restaurante: ");
+        String id = tcl.next();
+        tcl.nextLine();
+        System.out.print("Nombre del restaurante: ");
+        String nombre = tcl.nextLine();
+        System.out.println(restauranteCtrl.registrarRestaurante(id, nombre));
+    }
+
+    private void agregarPlato() {
+        ArrayList<Restaurante> rests = restauranteCtrl.listar();
+        if (rests.isEmpty()) {
+            System.out.println("No hay restaurantes en el patio.");
+            return;
+        }
+        System.out.println("");
+        System.out.println("=== AGREGAR PLATO ===");
+        for (int i = 0; i < rests.size(); i++) {
+            System.out.println((i + 1) + ". " + rests.get(i).getNombre());
+        }
+        System.out.print("Restaurante (0 para volver): ");
+        int idxRest = leerEntero() - 1;
+        if (restauranteCtrl.obtenerPorIndice(idxRest) == null) {
+            return;
+        }
+        System.out.print("ID del plato: ");
+        String id = tcl.next();
+        tcl.nextLine();
+        System.out.print("Nombre del plato: ");
+        String nombre = tcl.nextLine();
+        System.out.print("Precio: ");
+        double precio = leerDouble();
+        System.out.print("Disponible? (s/n): ");
+        boolean disponible = tcl.next().trim().equalsIgnoreCase("s");
+        tcl.nextLine();
+        System.out.println(restauranteCtrl.registrarPlato(idxRest, id, nombre, precio, disponible));
     }
 
     private void menuInventario() {
@@ -341,15 +455,61 @@ public class Vista {
                     }
                 }
             } else if (opc == 2) {
-                System.out.print("Nombre del ingrediente: ");
-                String nombre = tcl.next();
-                tcl.nextLine();
-                System.out.print("Cantidad a ingresar: ");
-                int cant = leerEntero();
-                boolean ok = inventarioCtrl.registrarEntrada(nombre, cant);
-                System.out.println(ok ? "Stock actualizado" : "Ingrediente no encontrado");
+                registrarEntradaInventario();
             }
         } while (opc != 0);
+    }
+
+    private void registrarEntradaInventario() {
+        ArrayList<Restaurante> rests = restauranteCtrl.listar();
+        if (rests.isEmpty()) {
+            System.out.println("No hay restaurantes en el patio.");
+            return;
+        }
+        System.out.println("");
+        System.out.println("=== REGISTRAR ENTRADA DE INGREDIENTE ===");
+        for (int i = 0; i < rests.size(); i++) {
+            System.out.println((i + 1) + ". " + rests.get(i).getNombre());
+        }
+        System.out.print("Restaurante (0 para volver): ");
+        int idxRest = leerEntero() - 1;
+        Restaurante r = restauranteCtrl.obtenerPorIndice(idxRest);
+        if (r == null) {
+            return;
+        }
+        ArrayList<Plato> platos = r.getPlatos();
+        if (platos.isEmpty()) {
+            System.out.println("Este restaurante no tiene platos registrados.");
+            return;
+        }
+        System.out.println("Platos de " + r.getNombre() + ":");
+        for (int i = 0; i < platos.size(); i++) {
+            System.out.println((i + 1) + ". " + platos.get(i).getNombre());
+        }
+        System.out.print("Plato (0 para volver): ");
+        int idxPlato = leerEntero() - 1;
+        if (idxPlato < 0 || idxPlato >= platos.size()) {
+            return;
+        }
+        Plato plato = platos.get(idxPlato);
+        ArrayList<Ingrediente> ings = plato.getIngredientes();
+        if (ings.isEmpty()) {
+            System.out.println("Este plato no tiene ingredientes registrados.");
+            return;
+        }
+        System.out.println("Ingredientes de " + plato.getNombre() + ":");
+        for (int i = 0; i < ings.size(); i++) {
+            System.out.println((i + 1) + ". " + ings.get(i).resumenInventario());
+        }
+        System.out.print("Ingrediente (0 para volver): ");
+        int idxIng = leerEntero() - 1;
+        if (idxIng < 0 || idxIng >= ings.size()) {
+            return;
+        }
+        System.out.print("Cantidad a ingresar: ");
+        int cant = leerEntero();
+        boolean ok = inventarioCtrl.registrarEntradaDirecta(ings.get(idxIng), cant);
+        System.out.println(ok ? "Stock actualizado correctamente." : "Cantidad invalida.");
     }
 
     private void menuReporte() {

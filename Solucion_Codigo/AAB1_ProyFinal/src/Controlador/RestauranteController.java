@@ -49,4 +49,61 @@ public class RestauranteController {
     public boolean hayRestaurantes() {
         return !patio.getRestaurantes().isEmpty();
     }
+
+    public String registrarRestaurante(String id, String nombre) {
+        if (id == null || id.trim().isEmpty() || nombre == null || nombre.trim().isEmpty()) {
+            return "El id y el nombre son obligatorios.";
+        }
+        if (patio.buscarPorId(id.trim()) != null) {
+            return "Ya existe un restaurante con el id " + id.trim() + ".";
+        }
+        patio.agregarRestaurante(new Restaurante(id.trim(), nombre.trim()));
+        return "Restaurante registrado correctamente.";
+    }
+
+    public String registrarPlato(int indiceRestaurante, String id, String nombre,
+            double precio, boolean disponible) {
+        Restaurante r = obtenerPorIndice(indiceRestaurante);
+        if (r == null) {
+            return "Restaurante invalido.";
+        }
+        if (id == null || id.trim().isEmpty() || nombre == null || nombre.trim().isEmpty()) {
+            return "El id y el nombre son obligatorios.";
+        }
+        if (r.buscarPlatoPorId(id.trim()) != null) {
+            return "Ya existe un plato con el id " + id.trim() + " en este restaurante.";
+        }
+        if (precio <= 0) {
+            return "El precio debe ser mayor que cero.";
+        }
+        r.agregarPlato(new Plato(id.trim(), nombre.trim(), precio, disponible));
+        return "Plato registrado correctamente.";
+    }
+
+    public String registrarCombo(int indiceRestaurante, String id, String nombre,
+            double precio, ArrayList<Integer> indicesPlatos) {
+        Restaurante r = obtenerPorIndice(indiceRestaurante);
+        if (r == null) {
+            return "Restaurante invalido.";
+        }
+        if (id == null || id.trim().isEmpty() || nombre == null || nombre.trim().isEmpty()) {
+            return "El id y el nombre son obligatorios.";
+        }
+        if (r.buscarComboPorId(id.trim()) != null) {
+            return "Ya existe un combo con el id " + id.trim() + ".";
+        }
+        if (precio <= 0) {
+            return "El precio debe ser mayor que cero.";
+        }
+        if (indicesPlatos.size() < 2) {
+            return "Un combo debe tener al menos 2 platos.";
+        }
+        ArrayList<Plato> platosCombo = new ArrayList<>();
+        for (int idx : indicesPlatos) {
+            Plato p = listarPlatosDe(indiceRestaurante).get(idx);
+            platosCombo.add(p);
+        }
+        r.crearCombo(id.trim(), nombre.trim(), precio, platosCombo);
+        return "Combo registrado correctamente.";
+    }
 }

@@ -1,16 +1,7 @@
 package Vista;
 
-import Controlador.ClienteController;
-import Controlador.InventarioController;
-import Controlador.PedidoController;
-import Controlador.RepartidorController;
-import Controlador.ReporteController;
-import Controlador.RestauranteController;
-import Modelos.DatosIniciales;
-import Modelos.EscrituraInformacion;
-import Modelos.EstadoCargado;
-import Modelos.LecturaInformacion;
-import Modelos.PatiodeComidas;
+import Controlador.*;
+import Modelos.*;
 
 public class AAB1_ProyFinal {
 

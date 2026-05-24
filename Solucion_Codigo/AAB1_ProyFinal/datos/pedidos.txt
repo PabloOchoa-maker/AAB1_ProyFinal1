@@ -1,2 +1,4 @@
 297;Pablo;Juan;17.25
 231;Pablo;;64.5
+124;Guerrero;Juan;24.5
+261;Pablo;Emilio;44.0
