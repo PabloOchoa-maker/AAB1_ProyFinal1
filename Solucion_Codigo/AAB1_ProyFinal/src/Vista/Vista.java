@@ -426,7 +426,36 @@ public class Vista {
         System.out.print("Disponible? (s/n): ");
         boolean disponible = tcl.next().trim().equalsIgnoreCase("s");
         tcl.nextLine();
-        System.out.println(restauranteCtrl.registrarPlato(idxRest, id, nombre, precio, disponible));
+
+        ArrayList<Ingrediente> ingredientes = new ArrayList<>();
+        System.out.println("");
+        System.out.println("--- Ingredientes del plato (escriba 'fin' para terminar) ---");
+        while (true) {
+            System.out.print("Nombre del ingrediente: ");
+            String nIng = tcl.nextLine().trim();
+            if (nIng.equalsIgnoreCase("fin")) {
+                break;
+            }
+            if (nIng.isEmpty()) {
+                System.out.println("El nombre no puede estar vacio.");
+                continue;
+            }
+            System.out.print("Stock inicial: ");
+            String sStock = tcl.nextLine().trim();
+            try {
+                int stock = Integer.parseInt(sStock);
+                if (stock < 0) {
+                    System.out.println("El stock no puede ser negativo.");
+                    continue;
+                }
+                ingredientes.add(new Ingrediente(nIng, stock));
+                System.out.println("Ingrediente agregado: " + nIng + " (stock " + stock + ")");
+            } catch (NumberFormatException e) {
+                System.out.println("Stock invalido, intente con otro ingrediente.");
+            }
+        }
+
+        System.out.println(restauranteCtrl.registrarPlato(idxRest, id, nombre, precio, disponible, ingredientes));
     }
 
     private void menuInventario() {

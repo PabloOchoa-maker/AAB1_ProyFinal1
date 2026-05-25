@@ -1,9 +1,10 @@
 package Controlador;
 
 import Modelos.Cliente;
-import Modelos.EscrituraInformacion;
+import Modelos.EstadoCargado;
 import Modelos.PatiodeComidas;
 import Modelos.Pedido;
+import Modelos.PersistenciaEstado;
 import Modelos.Repartidor;
 import java.util.ArrayList;
 
@@ -24,7 +25,7 @@ public class ClienteController {
     public Cliente registrar(String nombre, String direccion, double distanciaKm) {
         Cliente c = new Cliente(nombre, direccion, distanciaKm);
         clientes.add(c);
-        EscrituraInformacion.guardarTodo(patio, clientes, repartidores, pedidos);
+        PersistenciaEstado.guardar(new EstadoCargado(patio, clientes, repartidores, pedidos));
         return c;
     }
 

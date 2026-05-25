@@ -1,9 +1,10 @@
 package Controlador;
 
 import Modelos.Cliente;
-import Modelos.EscrituraInformacion;
+import Modelos.EstadoCargado;
 import Modelos.PatiodeComidas;
 import Modelos.Pedido;
+import Modelos.PersistenciaEstado;
 import Modelos.Repartidor;
 import java.util.ArrayList;
 
@@ -24,7 +25,7 @@ public class RepartidorController {
     public Repartidor registrar(String nombre) {
         Repartidor r = new Repartidor(nombre);
         repartidores.add(r);
-        EscrituraInformacion.guardarTodo(patio, clientes, repartidores, pedidos);
+        PersistenciaEstado.guardar(new EstadoCargado(patio, clientes, repartidores, pedidos));
         return r;
     }
 
@@ -51,14 +52,14 @@ public class RepartidorController {
     public void marcarOcupado(Repartidor r) {
         if (r != null) {
             r.asignarPedido();
-            EscrituraInformacion.guardarTodo(patio, clientes, repartidores, pedidos);
+            PersistenciaEstado.guardar(new EstadoCargado(patio, clientes, repartidores, pedidos));
         }
     }
 
     public void marcarLibre(Repartidor r) {
         if (r != null) {
             r.liberar();
-            EscrituraInformacion.guardarTodo(patio, clientes, repartidores, pedidos);
+            PersistenciaEstado.guardar(new EstadoCargado(patio, clientes, repartidores, pedidos));
         }
     }
 

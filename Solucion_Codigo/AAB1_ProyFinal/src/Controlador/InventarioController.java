@@ -1,11 +1,12 @@
 package Controlador;
 
 import Modelos.Cliente;
-import Modelos.EscrituraInformacion;
+import Modelos.EstadoCargado;
 import Modelos.Ingrediente;
 import Modelos.LineaPedido;
 import Modelos.PatiodeComidas;
 import Modelos.Pedido;
+import Modelos.PersistenciaEstado;
 import Modelos.Plato;
 import Modelos.Repartidor;
 import Modelos.Restaurante;
@@ -31,7 +32,7 @@ public class InventarioController {
             return false;
         }
         ing.registrarEntrada(cantidad);
-        EscrituraInformacion.guardarTodo(patio, clientes, repartidores, pedidos);
+        PersistenciaEstado.guardar(new EstadoCargado(patio, clientes, repartidores, pedidos));
         return true;
     }
 
@@ -58,7 +59,7 @@ public class InventarioController {
             return false;
         }
         ing.registrarEntrada(cantidad);
-        EscrituraInformacion.guardarTodo(patio, clientes, repartidores, pedidos);
+        PersistenciaEstado.guardar(new EstadoCargado(patio, clientes, repartidores, pedidos));
         return true;
     }
 
@@ -79,6 +80,6 @@ public class InventarioController {
                 p.descontarStockPor(l.getCantidad());
             }
         }
-        EscrituraInformacion.guardarTodo(patio, clientes, repartidores, pedidos);
+        PersistenciaEstado.guardar(new EstadoCargado(patio, clientes, repartidores, pedidos));
     }
 }

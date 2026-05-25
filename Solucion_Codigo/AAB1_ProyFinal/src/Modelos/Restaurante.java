@@ -1,8 +1,11 @@
 package Modelos;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Restaurante implements Calculable {
+public class Restaurante implements Calculable, Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     private String id;
     private String nombre;

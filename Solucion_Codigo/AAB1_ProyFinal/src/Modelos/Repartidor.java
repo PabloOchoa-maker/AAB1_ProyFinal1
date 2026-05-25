@@ -1,6 +1,10 @@
 package Modelos;
 
-public class Repartidor {
+import java.io.Serializable;
+
+public class Repartidor implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     private String nombre;
     private boolean disponible;

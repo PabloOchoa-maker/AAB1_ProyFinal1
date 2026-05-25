@@ -1,6 +1,10 @@
 package Modelos;
 
-public class LineaPedido {
+import java.io.Serializable;
+
+public class LineaPedido implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     private Plato plato;
     private int cantidad;

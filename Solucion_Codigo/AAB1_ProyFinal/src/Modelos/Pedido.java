@@ -1,9 +1,12 @@
 package Modelos;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class Pedido implements Calculable {
+public class Pedido implements Calculable, Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     private int id;
     private ArrayList<LineaPedido> lineas;

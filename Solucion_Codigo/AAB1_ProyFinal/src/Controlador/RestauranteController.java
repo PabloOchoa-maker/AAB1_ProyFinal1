@@ -1,6 +1,7 @@
 package Controlador;
 
 import Modelos.Combo;
+import Modelos.Ingrediente;
 import Modelos.PatiodeComidas;
 import Modelos.Plato;
 import Modelos.Restaurante;
@@ -63,6 +64,11 @@ public class RestauranteController {
 
     public String registrarPlato(int indiceRestaurante, String id, String nombre,
             double precio, boolean disponible) {
+        return registrarPlato(indiceRestaurante, id, nombre, precio, disponible, new ArrayList<>());
+    }
+
+    public String registrarPlato(int indiceRestaurante, String id, String nombre,
+            double precio, boolean disponible, ArrayList<Ingrediente> ingredientes) {
         Restaurante r = obtenerPorIndice(indiceRestaurante);
         if (r == null) {
             return "Restaurante invalido.";
@@ -76,8 +82,9 @@ public class RestauranteController {
         if (precio <= 0) {
             return "El precio debe ser mayor que cero.";
         }
-        r.agregarPlato(new Plato(id.trim(), nombre.trim(), precio, disponible));
-        return "Plato registrado correctamente.";
+        ArrayList<Ingrediente> lista = ingredientes != null ? ingredientes : new ArrayList<>();
+        r.agregarPlato(new Plato(id.trim(), nombre.trim(), precio, disponible, lista));
+        return "Plato registrado correctamente (" + lista.size() + " ingrediente(s)).";
     }
 
     public String registrarCombo(int indiceRestaurante, String id, String nombre,

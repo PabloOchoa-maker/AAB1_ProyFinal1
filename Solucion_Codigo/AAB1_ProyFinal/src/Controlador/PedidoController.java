@@ -1,10 +1,11 @@
 package Controlador;
 
 import Modelos.Cliente;
-import Modelos.EscrituraInformacion;
+import Modelos.EstadoCargado;
 import Modelos.LineaPedido;
 import Modelos.PatiodeComidas;
 import Modelos.Pedido;
+import Modelos.PersistenciaEstado;
 import Modelos.Repartidor;
 import java.util.ArrayList;
 
@@ -37,7 +38,7 @@ public class PedidoController {
         if (repartidor != null) {
             repartidor.asignarPedido();
         }
-        EscrituraInformacion.guardarTodo(patio, clientes, repartidores, pedidos);
+        PersistenciaEstado.guardar(new EstadoCargado(patio, clientes, repartidores, pedidos));
         return nuevo;
     }
 

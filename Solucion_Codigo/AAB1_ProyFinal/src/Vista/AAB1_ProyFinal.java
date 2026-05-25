@@ -6,13 +6,14 @@ import Modelos.*;
 public class AAB1_ProyFinal {
 
     public static void main(String[] args) {
-        EstadoCargado estado = LecturaInformacion.cargarTodo();
+        EstadoCargado estado = PersistenciaEstado.cargar();
         PatiodeComidas patio;
 
         if (estado.estaVacio()) {
             System.out.println("(Primera ejecucion: sembrando datos iniciales)");
             patio = DatosIniciales.sembrar();
-            EscrituraInformacion.guardarTodo(patio, estado.getClientes(), estado.getRepartidores(), estado.getPedidos());
+            estado.setPatio(patio);
+            PersistenciaEstado.guardar(estado);
         } else {
             patio = estado.getPatio();
         }
