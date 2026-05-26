@@ -33,11 +33,13 @@ public class Pedido implements Calculable, Serializable {
 
     @Override
     public double calcularTotal() {
-        double total = 0;
-        for (LineaPedido l : lineas) {
-            total = total + l.getSubtotal();
-        }
-        return total + calcularDelivery();
+        double subtotal = calcularSubtotalPlatos();
+        double iva = subtotal * 0.15;
+        return subtotal + iva + calcularDelivery();
+    }
+
+    public double calcularIva() {
+        return calcularSubtotalPlatos() * 0.15;
     }
 
     public double calcularSubtotalPlatos() {

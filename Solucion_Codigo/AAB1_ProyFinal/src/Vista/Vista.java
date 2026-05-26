@@ -141,8 +141,9 @@ public class Vista {
         System.out.println("");
         System.out.println("PEDIDO #" + p.getId() + " creado");
         System.out.println("Subtotal platos: $" + p.calcularSubtotalPlatos());
-        System.out.println("Delivery: $" + p.calcularDelivery());
-        System.out.println("TOTAL: $" + p.calcularTotal());
+        System.out.println("IVA (15%):       $" + p.calcularIva());
+        System.out.println("Delivery:        $" + p.calcularDelivery());
+        System.out.println("TOTAL:           $" + p.calcularTotal());
     }
 
     private void agregarPlatosDe(Restaurante r, ArrayList<LineaPedido> lineas) {
