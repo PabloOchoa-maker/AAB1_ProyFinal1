@@ -1,18 +1,29 @@
 package Controlador;
 
+import Modelos.Cliente;
 import Modelos.Combo;
+import Modelos.EstadoCargado;
 import Modelos.Ingrediente;
 import Modelos.PatiodeComidas;
+import Modelos.Pedido;
+import Modelos.PersistenciaEstado;
 import Modelos.Plato;
+import Modelos.Repartidor;
 import Modelos.Restaurante;
 import java.util.ArrayList;
 
 public class RestauranteController {
 
     private PatiodeComidas patio;
+    private ArrayList<Cliente> clientes;
+    private ArrayList<Repartidor> repartidores;
+    private ArrayList<Pedido> pedidos;
 
-    public RestauranteController(PatiodeComidas patio) {
+    public RestauranteController(PatiodeComidas patio, ArrayList<Cliente> clientes, ArrayList<Repartidor> repartidores, ArrayList<Pedido> pedidos) {
         this.patio = patio;
+        this.clientes = clientes;
+        this.repartidores = repartidores;
+        this.pedidos = pedidos;
     }
 
     public ArrayList<Restaurante> listar() {
@@ -59,6 +70,7 @@ public class RestauranteController {
             return "Ya existe un restaurante con el id " + id.trim() + ".";
         }
         patio.agregarRestaurante(new Restaurante(id.trim(), nombre.trim()));
+        PersistenciaEstado.guardar(new EstadoCargado(patio, clientes, repartidores, pedidos));
         return "Restaurante registrado correctamente.";
     }
 
@@ -84,6 +96,7 @@ public class RestauranteController {
         }
         ArrayList<Ingrediente> lista = ingredientes != null ? ingredientes : new ArrayList<>();
         r.agregarPlato(new Plato(id.trim(), nombre.trim(), precio, disponible, lista));
+        PersistenciaEstado.guardar(new EstadoCargado(patio, clientes, repartidores, pedidos));
         return "Plato registrado correctamente (" + lista.size() + " ingrediente(s)).";
     }
 
@@ -111,6 +124,7 @@ public class RestauranteController {
             platosCombo.add(p);
         }
         r.crearCombo(id.trim(), nombre.trim(), precio, platosCombo);
+        PersistenciaEstado.guardar(new EstadoCargado(patio, clientes, repartidores, pedidos));
         return "Combo registrado correctamente.";
     }
 }

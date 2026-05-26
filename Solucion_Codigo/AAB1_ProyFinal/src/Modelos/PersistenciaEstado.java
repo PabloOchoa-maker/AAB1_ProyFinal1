@@ -52,6 +52,7 @@ public class PersistenciaEstado {
     }
 
     private static EstadoCargado estadoVacio() {
-        return new EstadoCargado(null, new ArrayList<>(), new ArrayList<>(), new ArrayList<>());
+        return new EstadoCargado(null, new ArrayList<>(), new ArrayList<>(), 
+                new ArrayList<>());
     }
 }

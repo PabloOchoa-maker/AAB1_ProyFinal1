@@ -5,6 +5,8 @@ import Modelos.*;
 
 public class AAB1_ProyFinal {
 
+    private static final boolean USAR_SWING = true;
+
     public static void main(String[] args) {
         EstadoCargado estado = PersistenciaEstado.cargar();
         PatiodeComidas patio;
@@ -21,11 +23,17 @@ public class AAB1_ProyFinal {
         InventarioController inventarioCtrl = new InventarioController(patio, estado.getClientes(), estado.getRepartidores(), estado.getPedidos());
         ClienteController clienteCtrl = new ClienteController(estado.getClientes(), patio, estado.getRepartidores(), estado.getPedidos());
         RepartidorController repartidorCtrl = new RepartidorController(estado.getRepartidores(), patio, estado.getClientes(), estado.getPedidos());
-        RestauranteController restauranteCtrl = new RestauranteController(patio);
+        RestauranteController restauranteCtrl = new RestauranteController(patio, estado.getClientes(), estado.getRepartidores(), estado.getPedidos());
         PedidoController pedidoCtrl = new PedidoController(estado.getPedidos(), estado.getClientes(), estado.getRepartidores(), patio, inventarioCtrl);
         ReporteController reporteCtrl = new ReporteController(estado.getPedidos(), patio);
 
-        Vista vista = new Vista(clienteCtrl, repartidorCtrl, restauranteCtrl, inventarioCtrl, pedidoCtrl, reporteCtrl);
-        vista.iniciar();
+        if (USAR_SWING) {
+            VentanaSwing ventana = new VentanaSwing(clienteCtrl, repartidorCtrl,
+                    restauranteCtrl, inventarioCtrl, pedidoCtrl, reporteCtrl);
+            ventana.mostrar();
+        } else {
+            Vista vista = new Vista(clienteCtrl, repartidorCtrl, restauranteCtrl, inventarioCtrl, pedidoCtrl, reporteCtrl);
+            vista.iniciar();
+        }
     }
 }
