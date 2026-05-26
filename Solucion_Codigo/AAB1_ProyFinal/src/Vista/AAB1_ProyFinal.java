@@ -27,7 +27,7 @@ public class AAB1_ProyFinal {
         PedidoController pedidoCtrl = new PedidoController(estado.getPedidos(), estado.getClientes(), estado.getRepartidores(), patio, inventarioCtrl);
         ReporteController reporteCtrl = new ReporteController(estado.getPedidos(), patio);
 
-        if (USAR_SWING) {
+        if (true) {
             VentanaSwing ventana = new VentanaSwing(clienteCtrl, repartidorCtrl,
                     restauranteCtrl, inventarioCtrl, pedidoCtrl, reporteCtrl);
             ventana.mostrar();

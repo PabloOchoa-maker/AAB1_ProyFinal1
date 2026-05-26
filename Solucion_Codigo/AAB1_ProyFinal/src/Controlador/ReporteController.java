@@ -4,6 +4,7 @@ import Modelos.LineaPedido;
 import Modelos.PatiodeComidas;
 import Modelos.Pedido;
 import Modelos.Plato;
+import Modelos.Restaurante;
 import java.util.ArrayList;
 
 public class ReporteController {
@@ -29,49 +30,38 @@ public class ReporteController {
     }
 
     public Plato platoMasVendido() {
-        ArrayList<Plato> platosVistos = new ArrayList<>();
-        ArrayList<Integer> cantidades = new ArrayList<>();
+        Plato top = null;
+        int maxCantidad = 0;
 
+        for (Restaurante r : patio.getRestaurantes()) {
+            for (Plato plato : r.getPlatos()) {
+                int vendidos = contarVentasDe(plato);
+                if (vendidos > maxCantidad) {
+                    maxCantidad = vendidos;
+                    top = plato;
+                }
+            }
+        }
+        return top;
+    }
+
+    private int contarVentasDe(Plato plato) {
+        int total = 0;
         for (Pedido p : pedidos) {
             for (LineaPedido l : p.getLineas()) {
-                Plato plato = l.getPlato();
-                if (plato == null) {
-                    continue;
-                }
-                int pos = -1;
-                for (int i = 0; i < platosVistos.size(); i++) {
-                    if (platosVistos.get(i).getId().equals(plato.getId())) {
-                        pos = i;
-                        break;
-                    }
-                }
-                if (pos == -1) {
-                    platosVistos.add(plato);
-                    cantidades.add(l.getCantidad());
-                } else {
-                    cantidades.set(pos, cantidades.get(pos) + l.getCantidad());
+                if (l.getPlato() != null && l.getPlato().getId().equals(plato.getId())) {
+                    total = total + l.getCantidad();
                 }
             }
         }
-
-        if (platosVistos.isEmpty()) {
-            return null;
-        }
-
-        int idxTop = 0;
-        for (int i = 1; i < cantidades.size(); i++) {
-            if (cantidades.get(i) > cantidades.get(idxTop)) {
-                idxTop = i;
-            }
-        }
-        return platosVistos.get(idxTop);
+        return total;
     }
 
     public String generarReporte() {
         StringBuilder sb = new StringBuilder();
         sb.append("===== REPORTE DE ").append(patio.getNombre()).append(" =====\n");
         sb.append("Total de pedidos: ").append(totalPedidos()).append("\n");
-        sb.append("Total ventas (con delivery): $").append(totalVentas()).append("\n");
+        sb.append("Total ventas: $").append(totalVentas()).append("\n");
         Plato top = platoMasVendido();
         if (top != null) {
             sb.append("Plato mas vendido: ").append(top.getNombre()).append(" ($").append(top.getPrecio()).append(")\n");
